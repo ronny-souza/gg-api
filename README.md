@@ -102,6 +102,8 @@ docker-compose up -d
 Obs: Lembrando que será necessária a configuração do Keycloak para que a aplicação consiga validar corretamente o acesso.
 
 # 3. Execute a aplicação
+
+```bash
 ./mvnw spring-boot:run
 ```
 
