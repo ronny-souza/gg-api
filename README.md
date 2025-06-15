@@ -78,13 +78,28 @@ A autenticação é feita com Keycloak, com suporte a:
 * Maven 3.9+
 
 #### Passos
+
+##### 1. Clone o repositório
+
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/ronny-souza/gg-api.git
 cd gg-api
+```
 
-# 2. Suba os containers do Keycloak e PostgreSQL
+##### 2. Configure e execute os containers do Keycloak e PostgreSQL
+Para configurar os contêineres, é necessário fornecer ao container do PostgreSQL o script SQL de inicialização da base de dados do Keycloak. Para isso, esse repositório o fornece no diretório **/infrastructure/keycloak**. Você também precisará alterar o docker-compose.yml para ajustar o caminho de onde virá o script. Atualmente está assim:
+
+```bash
+- ./init-keycloak-database.sql:/docker-entrypoint-initdb.d/init-keycloak-db.sql
+```
+
+Recomenda-se que copie o docker-compose.yml e o script em outro diretório após o clone, uma vez que ao inicializá-los, eles irão criar diretórios e arquivos, e pode sujar o diretório da aplicação em si. Após fazer os ajustes necessários, basta executar:
+
+```bash
 docker-compose up -d
+```
+
+Obs: Lembrando que será necessária a configuração do Keycloak para que a aplicação consiga validar corretamente o acesso.
 
 # 3. Execute a aplicação
 ./mvnw spring-boot:run
